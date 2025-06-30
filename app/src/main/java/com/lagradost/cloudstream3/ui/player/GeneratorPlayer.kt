@@ -175,6 +175,7 @@ class GeneratorPlayer : FullScreenPlayer() {
     }
 
     private fun setSubtitles(subtitle: SubtitleData?): Boolean {
+        lastActiveSubtitle = subtitle
         // If subtitle is changed -> Save the language
         if (subtitle != currentSelectedSubtitles) {
             val subtitleLanguage639 = if (subtitle == null) {
@@ -226,6 +227,7 @@ class GeneratorPlayer : FullScreenPlayer() {
     }
 
     private fun noSubtitles(): Boolean {
+        updateSubtitleButton(false)
         return setSubtitles(null)
     }
 
@@ -1361,8 +1363,12 @@ class GeneratorPlayer : FullScreenPlayer() {
                         } else {
                             subtitlesGroupedList.getOrNull(subtitleGroupIndex - 1)?.value?.getOrNull(
                                 subtitleOptionIndex
-                            )?.let {
-                                setSubtitles(it)
+                            )?.let { subtitle ->
+                                val success = setSubtitles(subtitle)
+                                if (success) {
+                                    updateSubtitleButton(true)
+                                }
+                                success
                             } ?: false
                         }
                     }

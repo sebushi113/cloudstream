@@ -866,7 +866,7 @@
                             android:id="@+id/player_skip_episode"
                             style="@style/VideoButtonTV"
                             android:nextFocusLeft="@id/player_skip_op"
-                            android:nextFocusRight="@id/player_resize_btt"
+                            android:nextFocusRight="@id/player_subtitle_toggle_btt"
                             android:nextFocusUp="@id/player_pause_play"
                             android:nextFocusDown="@id/player_resize_btt"
                             android:text="@string/next_episode"
@@ -875,9 +875,19 @@
                             tools:visibility="visible" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/player_resize_btt"
+                            android:id="@+id/player_subtitle_toggle_btt"
                             style="@style/VideoButtonTV"
                             android:nextFocusLeft="@id/player_skip_episode"
+                            android:nextFocusRight="@id/player_resize_btt"
+                            android:nextFocusUp="@id/player_pause_play"
+                            android:nextFocusDown="@id/player_resize_btt"
+                            android:text="Subtitles"
+                            app:icon="@drawable/ic_outline_subtitles_24" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/player_resize_btt"
+                            style="@style/VideoButtonTV"
+                            android:nextFocusLeft="@id/player_subtitle_toggle_btt"
 
                             android:nextFocusRight="@id/player_speed_btt"
                             android:nextFocusUp="@id/player_pause_play"

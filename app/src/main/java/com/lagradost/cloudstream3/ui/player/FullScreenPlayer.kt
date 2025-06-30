@@ -99,6 +99,7 @@ open class FullScreenPlayer : AbstractPlayerFragment() {
     protected open var lockRotation = true
     protected open var isFullScreenPlayer = true
     protected var playerBinding: PlayerCustomLayoutBinding? = null
+    protected var lastActiveSubtitle: SubtitleData? = null
 
     private var durationMode: Boolean by UserPreferenceDelegate("duration_mode", false)
 
@@ -1772,6 +1773,10 @@ open class FullScreenPlayer : AbstractPlayerFragment() {
                 showSubtitleOffsetDialog()
             }
 
+            playerBinding?.playerSubtitleToggleBtt?.setOnClickListener {
+                toggleSubtitles()
+            }
+
             playerRew.setOnClickListener {
                 autoHide()
                 rewind()
@@ -1792,6 +1797,10 @@ open class FullScreenPlayer : AbstractPlayerFragment() {
 
             playerTracksBtt.setOnClickListener {
                 showTracksDialogue()
+            }
+
+            playerBinding?.playerSubtitleToggleBtt?.setOnClickListener {
+                toggleSubtitles()
             }
 
             // it is !not! a bug that you cant touch the right side, it does not register inputs on navbar or status bar
@@ -1834,6 +1843,27 @@ open class FullScreenPlayer : AbstractPlayerFragment() {
     private fun toggleRotate() {
         activity?.let {
             toggleOrientationWithSensor(it)
+        }
+    }
+
+    protected fun updateSubtitleButton(isOn: Boolean) {
+        val icon = if (isOn) R.drawable.ic_outline_subtitles_24 else R.drawable.ic_outline_subtitles_off_24
+        playerBinding?.playerSubtitleToggleBtt?.setIconResource(icon)
+    }
+
+    private fun toggleSubtitles() {
+        val currentSubtitle = player.getCurrentPreferredSubtitle()
+        if (currentSubtitle != null) {
+            lastActiveSubtitle = currentSubtitle
+            player.setPreferredSubtitles(null)
+            updateSubtitleButton(false)
+        } else {
+            if (lastActiveSubtitle != null) {
+                player.setPreferredSubtitles(lastActiveSubtitle)
+                updateSubtitleButton(true)
+            } else {
+                showMirrorsDialogue()
+            }
         }
     }
 

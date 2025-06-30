@@ -753,6 +753,15 @@
                                 app:icon="@drawable/ic_baseline_aspect_ratio_24" />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/player_subtitle_toggle_btt"
+                                style="@style/VideoButton"
+                                android:visibility="gone"
+                                android:nextFocusLeft="@id/player_resize_btt"
+                                android:nextFocusRight="@id/player_speed_btt"
+                                android:text="Subtitles"
+                                app:icon="@drawable/ic_outline_subtitles_24" />
+
+                            <com.google.android.material.button.MaterialButton
                                 android:id="@+id/player_speed_btt"
                                 style="@style/VideoButton"
                                 android:nextFocusLeft="@id/player_resize_btt"
